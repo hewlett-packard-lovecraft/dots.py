@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/haoming'
+let g:netrw_dirhist_1='/home/haoming/node-projects'
+let g:netrw_dirhist_0='/home/haoming/node-projects/sane-dnf-config-generator/src/Components'
+let g:netrw_dirhist_9='/home/haoming/node-projects/sane-dnf-config-generator/src'
+let g:netrw_dirhist_8='/home/haoming/node-projects/sane-dnf-config-generator'
+let g:netrw_dirhist_7='/home/haoming/node-projects'
+let g:netrw_dirhist_6='/home/haoming'
+let g:netrw_dirhist_5='/home/haoming/Documents/CLE 10'
+let g:netrw_dirhist_4='/home/haoming/Documents'
+let g:netrw_dirhist_3='/home/haoming'
