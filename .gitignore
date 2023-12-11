@@ -1,5 +1,5 @@
 # keep only init.el
-dotfiles/.config/emacs/
+dotfiles/.config/emacs/*
 !dotfiles/.config/emacs/init.el
 
 __pycache__/
