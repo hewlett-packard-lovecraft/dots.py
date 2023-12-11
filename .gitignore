@@ -2,12 +2,5 @@
 dotfiles/.config/emacs/
 !dotfiles/.config/emacs/init.el
 
-# keep only these files
-dotfiles/.config
-!dotfiles/.config/zoomus.conf
-!dotfiles/.config/nvim/
-!dotfiles/.config/environment.d/
-!dotfiles/.config/zoom.conf
-
 __pycache__/
 dotfiles.backup/
