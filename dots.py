@@ -12,6 +12,8 @@ dotfiles_dir = Path(__file__).parent.resolve().joinpath("dotfiles/")
 backup_dir = Path(__file__).parent.resolve().joinpath("dotfiles.backup/")
 home_dir = Path.home()
 
+# create backup dir if not exists
+output_file.parent.mkdir(exist_ok=True, parents=True)
 
 def clean():
     """unlink script from path, unlink files"""
