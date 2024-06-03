@@ -13,10 +13,10 @@ function imap(shortcut, command)
 	map("i", shortcut, command)
 end
 
-nmap("<A-Up>", ":wincmd k<CR>") -- alternate split keys for insert m(alt + arrow keys)
-nmap("<A-Down>", ":wincmd j<CR>")
-nmap("<A-Left>", ":wincmd h<CR>")
-nmap("<A-Right>", ":wincmd l<CR>")
+nmap("<C-A-k>", ":wincmd k<CR>") -- alternate split keys for insert m(alt + arrow keys)
+nmap("<C-A-j>", ":wincmd j<CR>")
+nmap("<C-A-h>", ":wincmd h<CR>")
+nmap("<C-A-l>", ":wincmd l<CR>")
 
 nmap("<C-l>", ":tabnext<CR>") -- tab shortcuts (control h/L)
 nmap("<C-h>", ":tabprevious<CR>")
@@ -70,13 +70,17 @@ map("n", "<leader>z", ":TagbarToggle<CR>") -- open/close
 -- telescope
 
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope fine_files" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live_grep" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help_tags" })
 
--- telescope file browser
-vim.api.nvim_set_keymap("n", "<leader>fe", ":Telescope file_browser<CR>", { noremap = true })
+-- convenient keybinds for buffer and help
+vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Telescope help_tags" })
+
+-- oil file browser
+vim.api.nvim_set_keymap("n", "<leader>fe", ":Oil<CR>", { noremap = true, desc = "Oil file browser" })
 
 -- select workspace with telescope
 vim.keymap.set("n", "<leader>fw", ":WorkspacesOpen<CR>")

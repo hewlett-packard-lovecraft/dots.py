@@ -1,7 +1,12 @@
 -- set colourscheme
-local status_ok, color_scheme = pcall(require, 'monokai')
+local status_ok, color_scheme = pcall(require, "vscode")
 if not status_ok then
-  return
+	return
 end
 
-require('monokai').setup { palette = require('monokai').pro }
+color_scheme.setup({
+	transparent = false,
+	style = "dark",
+})
+
+vim.cmd([[colorscheme vscode]])

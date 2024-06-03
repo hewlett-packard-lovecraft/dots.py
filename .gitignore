@@ -8,6 +8,8 @@ dotfiles/.config/*
 !dotfiles/.config/environment.d/
 !dotfiles/.config/zoom.conf
 !dotfiles/.config/zoomus.conf
+!dotfiles/.config/tmuxinator
+
 
 __pycache__/
 dotfiles.backup/

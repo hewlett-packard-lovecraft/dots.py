@@ -17,28 +17,10 @@ if not nvim_lint_status_ok then
 	return
 end
 
-local mason_nvim_lint_status_ok, mason_nvim_lint = pcall(require, "mason-nvim-lint")
-if not mason_nvim_lint_status_ok then
-	return
-end
-
 local mason_tool_installer_ok, mason_tool_installer = pcall(require, "mason-tool-installer")
 if not mason_tool_installer_ok then
 	return
 end
-
---[[
-
-local nvim_dap_ok, nvim_dap = pcall(require, 'nvim-dap')
-if not nvim_dap_ok then
-  return
-end
-
-local mason_nvim_dap_ok, mason_nvim_dap = pcall(require, 'mason-nvim-dap')
-if not mason_nvim_dap_ok then
-  return
-end
---]]
 
 mason.setup({
 	ui = {
@@ -69,7 +51,6 @@ mason_tool_installer.setup({
 		"prettierd",
 		"prettier",
 		"eslint_d",
-		"vale",
 		"latexindent",
 		"markdownlint",
 	},

@@ -24,9 +24,11 @@ end
 lazy.setup({
 	spec = {
 		-- Colorscheme:
-		-- The colorscheme should be available when starting Neovim.
-		{ "tanvirtin/monokai.nvim" },
-
+		{
+			"Mofiqul/vscode.nvim",
+			lazy = false, -- make sure we load this during startup if it is your main colorscheme
+			priority = 1000,
+		},
 		-- Icons
 		{ "kyazdani42/nvim-web-devicons", lazy = true },
 
@@ -43,13 +45,6 @@ lazy.setup({
 			end,
 		},
 
-		-- File explorer
-		{
-			enabled = false,
-			"kyazdani42/nvim-tree.lua",
-			dependencies = { "kyazdani42/nvim-web-devicons" },
-		},
-
 		-- Telescope
 		{
 			"nvim-telescope/telescope.nvim",
@@ -58,11 +53,15 @@ lazy.setup({
 				"nvim-lua/plenary.nvim",
 				"kyazdani42/nvim-web-devicons",
 				"nvim-telescope/telescope-ui-select.nvim",
-				"nvim-telescope/telescope-file-browser.nvim",
-				-- 'nvim-telescope/telescope-dap.nvim'
 			},
 		},
-
+		{
+			"stevearc/oil.nvim",
+			config = function()
+				require("oil").setup({ default_file_explorer = true })
+			end,
+			dependencies = { "nvim-tree/nvim-web-devicons" },
+		},
 		{
 			"natecraddock/workspaces.nvim",
 			dependencies = {
@@ -172,6 +171,12 @@ lazy.setup({
 			opts = {},
 		},
 		-- Configure DAP
+		{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+		{
+			"jay-babu/mason-nvim-dap.nvim",
+			dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
+		},
+
 		-- Configure Latex
 		"lervag/vimtex",
 		{
@@ -194,6 +199,8 @@ lazy.setup({
 			end,
 		},
 		"equalsraf/neovim-gui-shim",
+		-- language aware tabs
+		"gpanders/editorconfig.nvim",
 		{},
 	},
 })
