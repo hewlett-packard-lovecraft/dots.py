@@ -1,4 +1,4 @@
------------------------------------------------------------
+-----------------------------------------------------------lspc
 -- Neovim LSP configuration file
 -----------------------------------------------------------
 
@@ -124,7 +124,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches.
 -- Add your language server below:
-local servers = { "bashls", "pyright", "clangd", "html", "cssls", "tsserver", "ruff_lsp", "lua_ls", "ltex", "texlab" }
+local servers = { "bashls", "pyright", "clangd", "html", "cssls", "ts_ls", "ruff_lsp", "lua_ls", "ltex", "texlab" }
 
 -- we deliberately exclude jdtls as nvim-jdtls handles it
 

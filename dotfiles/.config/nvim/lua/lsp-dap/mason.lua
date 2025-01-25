@@ -51,7 +51,6 @@ mason_tool_installer.setup({
 		"prettierd",
 		"prettier",
 		"eslint_d",
-		"latexindent",
 		"markdownlint",
 	},
 })

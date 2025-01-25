@@ -10,11 +10,13 @@ set smartcase	" Enable smart-case search
 set ignorecase	" Always case-insensitive
 set incsearch	" Searches for strings incrementally
 
-set autoindent	" Auto-indent new lines
-set shiftwidth=4	" Number of auto-indent spaces
-set smartindent	" Enable smart-indent
-set smarttab	" Enable smart-tabs
-set softtabstop=4	" Number of spaces per Tab
+set expandtab           " enter spaces when tab is pressed
+set textwidth=120       " break lines when line length increases
+set tabstop=4           " use 4 spaces to represent tab
+set softtabstop=4
+set shiftwidth=4        " number of spaces to use for auto indent
+set autoindent          " copy indent from current line when starting a new line
+
 
 " Advanced
 set confirm	" Prompts for confirmation
@@ -22,7 +24,9 @@ set ruler	" Show row and column ruler information
 set autowriteall	" Auto-write all file changes
 set undolevels=1000	" Number of undo levels
 set backspace=indent,eol,start	" Backspace behaviour
-set clipboard=unnamed " Use system keyboard
+set clipboard=unnamedplus " Use system keyboard
+syntax on               " syntax highlighting
+set showcmd             " show (partial) command in status line
 
 " Split layouts
 set splitbelow
@@ -80,3 +84,9 @@ vnoremap <leader>y "+y
 nnoremap <leader>P "0p
 vnoremap <leader>P "0p
 
+
+" configure expanding of tabs for various file types
+au BufRead,BufNewFile *.py set expandtab
+au BufRead,BufNewFile *.c set expandtab
+au BufRead,BufNewFile *.h set expandtab
+au BufRead,BufNewFile Makefile* set noexpandtab
