@@ -53,6 +53,7 @@ lazy.setup({
 				"nvim-lua/plenary.nvim",
 				"kyazdani42/nvim-web-devicons",
 				"nvim-telescope/telescope-ui-select.nvim",
+				"nvim-telescope/telescope-dap.nvim",
 			},
 		},
 		{
@@ -78,7 +79,7 @@ lazy.setup({
 				"lewis6991/gitsigns.nvim",
 			},
 			config = function()
-				require("lualine").setup()
+				require("lualine").setup({})
 			end,
 		},
 
@@ -171,10 +172,33 @@ lazy.setup({
 			opts = {},
 		},
 		-- Configure DAP
-		{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+		{
+			"rcarriga/nvim-dap-ui",
+			dependencies = {
+				"jay-babu/mason-nvim-dap.nvim",
+				"mfussenegger/nvim-dap",
+				"theHamsta/nvim-dap-virtual-text",
+				"nvim-neotest/nvim-nio",
+			},
+		},
+
+		{
+			"theHamsta/nvim-dap-virtual-text",
+			config = true,
+			dependencies = { "mfussenegger/nvim-dap" },
+		},
 		{
 			"jay-babu/mason-nvim-dap.nvim",
-			dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
+			dependencies = {
+				"williamboman/mason.nvim",
+				"mfussenegger/nvim-dap",
+			},
+		},
+
+		-- tasks.json
+		{
+			"stevearc/overseer.nvim",
+			opts = {},
 		},
 
 		-- Configure Latex

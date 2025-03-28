@@ -22,6 +22,11 @@ if not mason_tool_installer_ok then
 	return
 end
 
+local mason_nvim_dap_ok, mason_nvim_dap = pcall(require, "mason-nvim-dap")
+if not mason_nvim_dap_ok then
+	return
+end
+
 mason.setup({
 	ui = {
 		icons = {
@@ -35,7 +40,14 @@ mason.setup({
 mason_lspconfig.setup({
 	ensure_installed = {
 		"lua_ls",
-		"ruff_lsp",
+		"ruff",
+		"ltex",
+		"texlab",
+		"jdtls",
+	},
+	automatic_installation = {
+		"lua_ls",
+		"ruff",
 		"ltex",
 		"texlab",
 		"jdtls",
@@ -59,4 +71,9 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
 		nvim_lint.try_lint()
 	end,
+})
+
+mason_nvim_dap.setup({
+	ensure_installed = { "python", "cppdbg" },
+	handlers = {},
 })

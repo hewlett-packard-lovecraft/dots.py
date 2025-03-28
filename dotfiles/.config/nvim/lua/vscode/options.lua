@@ -1,48 +1,20 @@
--- neovim-vscode init file
--- bootstrap
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Use a protected call so we don't error out on first use
-local status_ok, lazy = pcall(require, "lazy")
-if not status_ok then
-	return
-end
-
--- Start setup
-lazy.setup({
-	spec = {
-		"easymotion/vim-easymotion",
-		"numToStr/Comment.nvim",
-		"michaeljsmith/vim-indent-object",
-		"justinmk/vim-sneak",
-		"bkad/CamelCaseMotion",
-		"vim-scripts/ReplaceWithRegister",
-		"wellle/targets.vim",
-		"windwp/nvim-autopairs",
-	},
-})
-
--- opts.g
+-- options.lua
 
 local g = vim.g -- Global variables
 local opt = vim.opt -- Set options (global/buffer/windows-scoped)
+local vscode = require('vscode')
+
+-----------------------------------------------------------
+-- vscode
+-----------------------------------------------------------
+vim.notify = vscode.notify -- show vscode notifications
 
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
 opt.mouse = "a" -- Enable mouse support
-opt.clipboard = "unnamedplus" -- Copy/paste to system clipboard
+g.clipboard = g.vscode_clipboard
+-- opt.clipboard = "unnamedplus" -- Copy/paste to system clipboard
 opt.swapfile = false -- Don't use swapfile
 opt.completeopt = "menuone,noinsert,noselect" -- Autocomplete options
 
