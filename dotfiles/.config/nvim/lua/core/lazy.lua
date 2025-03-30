@@ -40,9 +40,7 @@ lazy.setup({
 				"nvim-lua/plenary.nvim",
 				"kyazdani42/nvim-web-devicons",
 			},
-			config = function()
-				require("gitsigns").setup({})
-			end,
+			opts = {},
 		},
 
 		-- Telescope
@@ -58,9 +56,9 @@ lazy.setup({
 		},
 		{
 			"stevearc/oil.nvim",
-			config = function()
-				require("oil").setup({ default_file_explorer = true })
-			end,
+			opts = {
+				default_file_explorer = true,
+			},
 			dependencies = { "nvim-tree/nvim-web-devicons" },
 		},
 		{
@@ -78,9 +76,7 @@ lazy.setup({
 				"kyazdani42/nvim-web-devicons",
 				"lewis6991/gitsigns.nvim",
 			},
-			config = function()
-				require("lualine").setup({})
-			end,
+			opts = { options = { theme = "codedark" } },
 		},
 
 		-- Treesitter
@@ -96,9 +92,7 @@ lazy.setup({
 		{
 			"windwp/nvim-autopairs",
 			event = "InsertEnter",
-			config = function()
-				require("nvim-autopairs").setup({})
-			end,
+			opts = {},
 		},
 
 		-- LSP
@@ -128,30 +122,46 @@ lazy.setup({
 		},
 
 		{
-			"nvim-neorg/neorg",
-			ft = "norg",
-			config = true, -- run require("neorg").setup()
-		},
-		{
 			"dstein64/vim-startuptime",
 			lazy = false,
 			cmd = "StartupTime",
 		},
+		-- various utils
 		{
 			"numToStr/Comment.nvim",
 			lazy = false,
-			config = function()
-				require("Comment").setup()
-			end,
+			opts = {},
 		},
 		{
+			"folke/flash.nvim",
+			event = "VeryLazy",
+			---@type Flash.Config
+			opts = {},
+      -- stylua: ignore
+      keys = {
+        { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+        { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+        { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+        { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+        { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+      },
+		},
+		"michaeljsmith/vim-indent-object",
+		"wellle/targets.vim",
+		-- > various utils
+		{
 			"folke/which-key.nvim",
-			-- lazy = true,
-			config = function()
-				vim.o.timeout = true
-				vim.o.timeoutlen = 300
-				require("which-key").setup()
-			end,
+			event = "VeryLazy",
+			opts = {},
+			keys = {
+				{
+					"<leader>?",
+					function()
+						require("which-key").show({ global = false })
+					end,
+					desc = "Buffer Local Keymaps (which-key)",
+				},
+			},
 		},
 		{ "stevearc/dressing.nvim", event = "VeryLazy" },
 		{ "folke/neoconf.nvim", cmd = "Neoconf" },
@@ -207,9 +217,7 @@ lazy.setup({
 			"iurimateus/luasnip-latex-snippets.nvim",
 			-- vimtex isn't required if using treesitter
 			requires = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
-			config = function()
-				require("luasnip-latex-snippets").setup()
-			end,
+			opts = {},
 		},
 		{
 			"L3MON4D3/LuaSnip",

@@ -1,3 +1,6 @@
+# exec sway
+source $HOME/.zshrc.d/sway.zsh
+
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
