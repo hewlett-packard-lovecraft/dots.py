@@ -13,6 +13,11 @@ end
 -- See: https://github.com/nvim-treesitter/nvim-treesitter#quickstart
 nvim_treesitter.setup({
 	-- A list of parser names, or "all"
+	modules = {},
+	ignore_install = {
+
+		"latex",
+	},
 	ensure_installed = {
 		"bash",
 		"c",
@@ -27,11 +32,10 @@ nvim_treesitter.setup({
 		"typescript",
 		"vim",
 		"yaml",
-		"latex",
 	},
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
-	auto_install = true,
+	auto_install = false,
 	highlight = {
 		-- `false` will disable the whole extension
 		enable = true,

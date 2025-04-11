@@ -1,0 +1,132 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 27,
+
+  "modules-left": [
+    "sway/workspaces",
+    "custom/scratch",
+    "sway/mode",
+    "sway/window",
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "custom/tabletmode",
+    "cpu",
+    "network",
+    "temperature",
+    "backlight",
+    "pulseaudio",
+    "battery",
+    "clock",
+    "tray",
+    "custom/powerbutton",
+  ],
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "disable-markup": true,
+    "format": "{index}",
+    "persistent-workspaces": { "1": [], "2": [], "3": [], "4": [] },
+  },
+
+  "sway/window": {
+    "format": "{}",
+    "max-length": 150,
+  },
+
+  "custom/scratch": {
+    "interval": 3,
+    "exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 0)'",
+    "format": "^{}",
+    "on-click": "swaymsg 'scratchpad show'",
+    "on-click-right": "swaymsg 'move scratchpad'",
+  },
+
+  "custom/menu": {
+    "format": "󰮫 ",
+    "tooltip": false,
+    "on-click": "nwg-menu -ha 'right' -va 'top'",
+  },
+
+  "custom/keyboard": {
+    "format": "󰌌  OSK",
+    "tooltip": false,
+    "on-click": "~/.config/sway/touchscreen/wvkbd_toggle.sh",
+  },
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 15,
+  },
+
+  "clock": {
+    "format": "{:%a %b %e  %R}",
+    "interval": 30,
+  },
+
+  "battery": {
+    "bat": "rk817-battery",
+    "states": {
+      "full": 99,
+      "good": 98,
+      "normal": 98,
+      "warning": 20,
+      "critical": 15,
+    },
+
+    "format": "{icon}  {capacity}%",
+    "format-good": "{icon}  {capacity}%",
+    "format-full": "󰁹  {capacity}%",
+    "format-charging": "󰂄  {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "interval": 30,
+  },
+
+  "network": {
+    "interface": "wlan0",
+    "format-wifi": "{icon}  WiFi-On",
+    "format-disconnected": "󰤭   Disconnected",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "interval": 60,
+  },
+
+  "temperature": {
+    "thermal-zone": 0,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [""],
+    "interval": 30,
+  },
+
+  "cpu": {
+    "interval": 1,
+    "format": " {icon0}{icon1}{icon2}{icon3} {usage:>2}%",
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+  },
+
+  "backlight": {
+    "format": "{icon}  {percent}%  ",
+    "format-icons": ["󰃞", "󰃝", "󰃟", "󰃠"],
+    "interval": 60,
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%  ",
+    "format-bluetooth": "  {volume}%  ",
+    "format-muted": "󰖁  Muted  ",
+    "interval": 60,
+
+    "format-icons": ["󰕿", "󰖀", "󰕾"],
+    "on-click": "pactl set-sink-mute $(pactl get-default-sink) toggle",
+    // "on-click": "pavucontrol",
+  },
+
+  "custom/powerbutton": {
+    "format": "  󰤆  ",
+    "on-click": "nwg-bar",
+  },
+  "custom/tabletmode": {
+    "format": "   ",
+    "on-click": "nwg-bar -t 'tablet.json'",
+  },
+}

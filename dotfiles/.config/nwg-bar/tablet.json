@@ -1,0 +1,23 @@
+[
+  {
+    "label": "Landscape",
+    "exec": "swaymsg output '*' transform 90",
+    "icon":"/usr/share/icons/Adwaita/symbolic/status/orientation-landscape-symbolic.svg"
+
+  },
+  {
+    "label": "Portrait",
+    "exec": "swaymsg output '*' transform 0",
+    "icon":"/usr/share/icons/Adwaita/symbolic/status/orientation-portrait-right-symbolic.svg"
+  },
+  {
+    "label": "Tablet mode",
+    "exec": "/home/hxia/.config/sway/touchscreen/tablet_on.sh",
+    "icon":"/usr/share/icons/Adwaita/symbolic/ui/list-drag-handle-symbolic.svg"
+  },
+  {
+    "label": "Laptop mode",
+    "exec": "/home/hxia/.config/sway/touchscreen/tablet_off.sh",
+    "icon": "/usr/share/icons/Adwaita/scalable/devices/input-keyboard.svg"
+  }
+]

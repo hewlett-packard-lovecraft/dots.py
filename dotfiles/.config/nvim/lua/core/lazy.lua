@@ -76,7 +76,18 @@ lazy.setup({
 				"kyazdani42/nvim-web-devicons",
 				"lewis6991/gitsigns.nvim",
 			},
-			opts = { options = { theme = "codedark" } },
+			opts = {
+				options = {
+					theme = "codedark",
+					disabled_filetypes = {
+						winbar = {
+							"dap-view",
+							"dap-repl",
+							"dap-view-term",
+						},
+					},
+				},
+			},
 		},
 
 		-- Treesitter
@@ -167,6 +178,44 @@ lazy.setup({
 		{ "folke/neoconf.nvim", cmd = "Neoconf" },
 
 		-- LSP server-specific plugins
+		{
+			"folke/trouble.nvim",
+			opts = {}, -- for default options, refer to the configuration section for custom setup.
+			cmd = "Trouble",
+			keys = {
+				{
+					"<leader>xx",
+					"<cmd>Trouble diagnostics toggle<cr>",
+					desc = "Diagnostics (Trouble)",
+				},
+				{
+					"<leader>xX",
+					"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+					desc = "Buffer Diagnostics (Trouble)",
+				},
+				{
+					"<leader>cs",
+					"<cmd>Trouble symbols toggle focus=false<cr>",
+					desc = "Symbols (Trouble)",
+				},
+				{
+					"<leader>cl",
+					"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+					desc = "LSP Definitions / references / ... (Trouble)",
+				},
+				{
+					"<leader>xL",
+					"<cmd>Trouble loclist toggle<cr>",
+					desc = "Location List (Trouble)",
+				},
+				{
+					"<leader>xQ",
+					"<cmd>Trouble qflist toggle<cr>",
+					desc = "Quickfix List (Trouble)",
+				},
+			},
+		},
+
 		"folke/neodev.nvim",
 		{
 			"mfussenegger/nvim-jdtls",
@@ -178,30 +227,45 @@ lazy.setup({
 		"rshkarin/mason-nvim-lint",
 		"mfussenegger/nvim-lint",
 		{
+
 			"stevearc/conform.nvim",
+			-- keys = {
+			-- 	"<leader>F",
+			-- 	function()
+			-- 		require("conform").format({ async = true })
+			-- 	end,
+			-- 	mode = "",
+			-- 	desc = "Format buffer",
+			-- },
 			opts = {},
 		},
 		-- Configure DAP
-		{
-			"rcarriga/nvim-dap-ui",
-			dependencies = {
-				"jay-babu/mason-nvim-dap.nvim",
-				"mfussenegger/nvim-dap",
-				"theHamsta/nvim-dap-virtual-text",
-				"nvim-neotest/nvim-nio",
-			},
-		},
+		-- {
+		-- 	"rcarriga/nvim-dap-ui",
+		-- 	dependencies = {
+		-- 		"jay-babu/mason-nvim-dap.nvim",
+		-- 		"mfussenegger/nvim-dap",
+		-- 		"theHamsta/nvim-dap-virtual-text",
+		-- 		"nvim-neotest/nvim-nio",
+		-- 	},
+		-- },
 
 		{
 			"theHamsta/nvim-dap-virtual-text",
 			config = true,
-			dependencies = { "mfussenegger/nvim-dap" },
+			dependencies = { "nvim-treesitter/nvim-treesitter", "mfussenegger/nvim-dap" },
 		},
 		{
 			"jay-babu/mason-nvim-dap.nvim",
 			dependencies = {
 				"williamboman/mason.nvim",
 				"mfussenegger/nvim-dap",
+			},
+		},
+		{
+			"mfussenegger/nvim-dap",
+			dependencies = {
+				{ "igorlfs/nvim-dap-view", opts = {} },
 			},
 		},
 

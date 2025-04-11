@@ -3,12 +3,18 @@ dotfiles/.config/emacs/*
 !dotfiles/.config/emacs/init.el
 
 dotfiles/.config/*
-!dotfiles/.config/zoomus.conf
 !dotfiles/.config/nvim/
 !dotfiles/.config/environment.d/
 !dotfiles/.config/zoom.conf
 !dotfiles/.config/zoomus.conf
 !dotfiles/.config/tmuxinator
+!dotfiles/.config/tmux
+!dotfiles/.config/sway
+!dotfiles/.config/i3status
+!dotfiles/.config/waybar
+!dotfiles/.config/nwg-bar
+
+
 
 
 __pycache__/

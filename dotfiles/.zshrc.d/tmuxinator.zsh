@@ -1,6 +1,6 @@
-# activate pyenv if installed
+# add tmuxinator aliases if installed
 
-if (( ! $+commands[rsync] )); then
+if (( ! $+commands[tmuxinator] )); then
   return 1
 fi
 
