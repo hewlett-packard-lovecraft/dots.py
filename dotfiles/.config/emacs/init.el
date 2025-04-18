@@ -5,6 +5,7 @@
 ;;; Code:
 
 (require 'package)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (package-initialize)
 
 ;; automatically install use-package
@@ -33,6 +34,31 @@
         scroll-conservatively 101 ; > 100
         scroll-preserve-screen-position t
         auto-window-vscroll nil)
+
+  (setq mouse-wheel-tilt-scroll t)
+
+;; switch coalescing on and off based on the action.
+(defun filter-mwheel-always-coalesce (orig &rest args)
+  "A filter function suitable for :around advices that ensures only
+   coalesced scroll events reach the advised function."
+  (if mwheel-coalesce-scroll-events
+      (apply orig args)
+    (setq mwheel-coalesce-scroll-events t)))
+
+(defun filter-mwheel-never-coalesce (orig &rest args)
+  "A filter function suitable for :around advices that ensures only
+   non-coalesced scroll events reach the advised function."
+  (if mwheel-coalesce-scroll-events
+      (setq mwheel-coalesce-scroll-events nil)
+    (apply orig args)))
+
+; Don't coalesce for high precision scrolling
+(advice-add 'pixel-scroll-precision :around #'filter-mwheel-never-coalesce)
+
+; Coalesce for default scrolling (which is still used for horizontal scrolling)
+; and text scaling (bound to ctrl + mouse wheel by default).
+(advice-add 'mwheel-scroll          :around #'filter-mwheel-always-coalesce)
+(advice-add 'mouse-wheel-text-scale :around #'filter-mwheel-always-coalesce)
 
   ;; Always use spaces for indentation
   (setq-default indent-tabs-mode nil
@@ -503,7 +529,7 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous))
 
 ;; add icons
-(use-package company-box
+;; (use-package company-box
   :hook (company-mode . company-box-mode))
 
 ;; linter
@@ -609,31 +635,37 @@
 ;;             (custom-set-variables '(conda-anaconda-home "/opt/conda/"))))
 
 
-(use-package ein
-  :defer t
-  :config
-  (progn
-    ;;(setq ein:jupyter-default-notebook-directory "~/jupyter_notebooks/")
-    (with-eval-after-load 'ein-notebooklist
-      (evil-define-key 'normal ein:notebook-multilang-mode-map
-        (kbd "j") 'ein:worksheet-goto-next-input
-        (kbd "k") 'ein:worksheet-goto-prev-input
-        (kbd "D") 'ein:worksheet-kill-cell
-        (kbd "o") 'ein:worksheet-insert-cell-below
-        (kbd "O") 'ein:worksheet-insert-cell-above
-        (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next
-        (kbd "RET") 'ein:worksheet-execute-cell
-        (kbd "C-l") 'ein:worksheet-clear-output
-        (kbd "C-S-l") 'ein:worksheet-clear-all-output)
-      (evil-define-key 'insert ein:notebook-multilang-mode-map
-        (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next)
-      )
-    )
-  )
+;; (use-package ein
+;;   :defer t
+;;   :config
+;;   (progn
+;;     ;;(setq ein:jupyter-default-notebook-directory "~/jupyter_notebooks/")
+;;     (with-eval-after-load 'ein-notebooklist
+;;       (evil-define-key 'normal ein:notebook-multilang-mode-map
+;;         (kbd "j") 'ein:worksheet-goto-next-input
+;;         (kbd "k") 'ein:worksheet-goto-prev-input
+;;         (kbd "D") 'ein:worksheet-kill-cell
+;;         (kbd "o") 'ein:worksheet-insert-cell-below
+;;         (kbd "O") 'ein:worksheet-insert-cell-above
+;;         (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next
+;;         (kbd "RET") 'ein:worksheet-execute-cell
+;;         (kbd "C-l") 'ein:worksheet-clear-output
+;;         (kbd "C-S-l") 'ein:worksheet-clear-all-output)
+;;       (evil-define-key 'insert ein:notebook-multilang-mode-map
+;;         (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next)
+;;       )
+;;     )
+;; )
 
 ;; c/cpp
-(use-package use-package-ensure-system-package
-  :ensure t)
+
+;; https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/
+(setq package-selected-packages '(lsp-mode yasnippet lsp-treemacs helm-lsp
+    projectile hydra flycheck company avy which-key helm-xref dap-mode))
+
+(when (cl-find-if-not #'package-installed-p package-selected-packages)
+  (package-refresh-contents)
+  (mapc #'package-install package-selected-packages))
 
 (use-package cmake-mode
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
@@ -642,24 +674,24 @@
   :after (cmake-mode)
   :hook (cmake-mode . cmake-font-lock-activate))
 
-;; (use-package cmake-ide
-;;   :after projectile
-;;   :hook (c++-mode . cmake-ide-find-project)
-;;   :preface
-;;   (defun cmake-ide-find-project ()
-;;     "Finds the directory of the project for cmake-ide."
-;;     (with-eval-after-load 'projectile
-;;       (setq cmake-ide-project-dir (projectile-project-root))
-;;       (setq cmake-ide-build-dir (concat cmake-ide-project-dir "build")))
-;;     (setq cmake-ide-compile-command
-;;           (concat "cd " cmake-ide-build-dir " && cmake .. && make"))
-;;     (cmake-ide-load-db))
+(use-package cmake-ide
+  :after projectile
+  :hook (c++-mode . cmake-ide-find-project)
+  :preface
+  (defun cmake-ide-find-project ()
+    "Finds the directory of the project for cmake-ide."
+    (with-eval-after-load 'projectile
+      (setq cmake-ide-project-dir (projectile-project-root))
+      (setq cmake-ide-build-dir (concat cmake-ide-project-dir "build")))
+    (setq cmake-ide-compile-command
+          (concat "cd " cmake-ide-build-dir " && cmake .. && make"))
+    (cmake-ide-load-db))
 
-;;   (defun
-;;     (other-window 1))
-;;   :bind ([remap comment-region] . cmake-ide-compile)
-;;   :init (cmake-ide-setup)
-;;   :config (advice-add 'cmake-ide-compile :after #'switch-to-compilation-window))
+  (defun
+    (other-window 1))
+  :bind ([remap comment-region] . cmake-ide-compile)
+  :init (cmake-ide-setup)
+  :config (advice-add 'cmake-ide-compile :after #'switch-to-compilation-window))
 
 (use-package yasnippet)
 
