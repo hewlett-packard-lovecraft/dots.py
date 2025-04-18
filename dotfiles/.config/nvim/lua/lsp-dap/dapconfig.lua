@@ -7,13 +7,40 @@ if not dap_status_ok then
 	return
 end
 
-local dapview_status_ok, dapview = pcall(require, "dap-view")
+local dapview_status_ok, dv = pcall(require, "dap-view")
 if not dapview_status_ok then
 	return
 end
 
+-- configure dapview layout
+dv.setup({
+	winbar = {
+		show = true,
+		-- You can add a "console" section to merge the terminal with the other views
+		sections = { "watches", "scopes", "exceptions", "breakpoints", "threads", "repl" },
+		-- Must be one of the sections declared above
+		default_section = "watches",
+	},
+	windows = {
+		height = 12,
+		terminal = {
+			-- 'left'|'right'|'above'|'below': Terminal position in layout
+			position = "left",
+			-- List of debug adapters for which the terminal should be ALWAYS hidden
+			hide = {},
+			-- Hide the terminal when starting a new session
+			start_hidden = false,
+		},
+	},
+})
+
+-- Automatically open help in vertical split
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "dap-view" }, -- dap-repl is set by `nvim-dap`
+	command = "wincmd L",
+})
+
 -- dapview auto-open
-local dap, dv = require("dap"), require("dap-view")
 dap.listeners.before.attach["dap-view-config"] = function()
 	dv.open()
 end
@@ -44,28 +71,21 @@ vim.keymap.set("n", "<leader>vv", function()
 	require("dap-view").toggle()
 end, { desc = "Toggle nvim-dap-view" })
 
-vim.keymap.set("n", "<leader>vw", function()
-	require("dap-view").jump("[watch]") -- Can be used to jump to a specific view, from any window
-end, { desc = "Go to nvim-dap-view watch" })
+vim.keymap.set("n", "<leader>vc", "<cmd>DapViewJump console<CR>", { desc = "Go to nvim-dap-view console" })
+vim.keymap.set("n", "<leader>vw", "<cmd>DapViewJump watches<CR>", { desc = "Go to nvim-dap-view watch" })
 
-vim.keymap.set("n", "<leader>ve", function()
-	require("dap-view").jump("[exeptions]") -- Can be used to jump to a specific view, from any window
-end, { desc = "Go to nvim-dap-view exeptions" })
+vim.keymap.set("n", "<leader>ve", "<cmd>DapViewJump exceptions<CR>", { desc = "Go to nvim-dap-view exceptions" })
 
-vim.keymap.set("n", "<leader>vb", function()
-	require("dap-view").jump("[breakpoints]") -- Can be used to jump to a specific view, from any window
-end, { desc = "Go to nvim-dap-view breakpoints" })
+vim.keymap.set("n", "<leader>vb", "<cmd>DapViewJump breakpoints<CR>", { desc = "Go to nvim-dap-view breakpoints" })
 
-vim.keymap.set("n", "<leader>dx", function()
-	require("dap-view").add_expr()
-end, { desc = "Add expression with nvim-dap-view" })
+vim.keymap.set("n", "<leader>dx", "<cmd>DapViewWatch<CR>", { desc = "Add expression with nvim-dap-view" })
 
-vim.keymap.set("n", "<leader>dS", function()
+vim.keymap.set("n", "<leader>vs", function()
 	local widgets = require("dap.ui.widgets")
 	widgets.centered_float(widgets.scopes, { border = "rounded" })
 end, { desc = "View scopes with nvim-dap-view" })
 
-vim.keymap.set("n", "<leader>dh", function()
+vim.keymap.set("n", "<leader>vh", function()
 	require("dap.ui.widgets").hover(nil, { border = "rounded" })
 end, { desc = "Hover mode with nvim-dap-view" })
 

@@ -13,10 +13,10 @@ function imap(shortcut, command)
 	map("i", shortcut, command)
 end
 
-nmap("<C-A-k>", ":wincmd k<CR>") -- alternate split keys for insert m(alt + arrow keys)
-nmap("<C-A-j>", ":wincmd j<CR>")
-nmap("<C-A-h>", ":wincmd h<CR>")
-nmap("<C-A-l>", ":wincmd l<CR>")
+nmap("<A-k>", ":wincmd k<CR>") -- alternate split keys for insert m(alt + arrow keys)
+nmap("<A-j>", ":wincmd j<CR>")
+nmap("<A-h>", ":wincmd h<CR>")
+nmap("<A-l>", ":wincmd l<CR>")
 
 nmap("<C-l>", ":tabnext<CR>") -- tab shortcuts (control h/L)
 nmap("<C-h>", ":tabprevious<CR>")

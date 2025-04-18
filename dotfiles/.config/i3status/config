@@ -36,22 +36,22 @@ battery 0 {
 }
 
 disk "/" {
-        format = "%avail free"
+        format = "DISK %avail"
 }
 
 load {
-        format = "%1min load"
+        format = "CPU %1min"
 }
 
 memory {
-        format = "%used used"
+        format = "RAM %used"
         threshold_degraded = "1G"
         format_degraded = "MEMORY < %available"
 }
 
 volume master {
     format = "%volume"
-    format_muted = "%volume"
+    format_muted = "Muted"
     device = "pulse"
 }
 
