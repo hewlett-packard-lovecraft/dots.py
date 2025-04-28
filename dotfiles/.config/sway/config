@@ -16,7 +16,7 @@ output * bg $wallpaper fill
 
 # font pango:IosevkaMonoNerdFont 10
 # font pango:RobotoMonoNerdFont 10
-font pango:Cantarell 14px
+# font pango:Cantarell 14px
 
 # this disables the titlebars
 smart_borders on

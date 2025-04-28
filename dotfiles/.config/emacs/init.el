@@ -273,150 +273,47 @@
 
 
 ;; 3rd party packages
+(use-package modus-themes
+  :ensure t
+  :config
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil)
+
+  ;; Maybe define some palette overrides, such as by using our presets
+  (setq modus-themes-common-palette-overrides
+        modus-themes-preset-overrides-intense)
+
+  ;; Load the theme of your choice.
+  (load-theme 'modus-operandi)
+
+  (define-key global-map (kbd "<f5>") #'modus-themes-toggle))
+
+;;; For the built-in themes which cannot use `require'.
+(use-package emacs
+  :config
+  (require-theme 'modus-themes) ; `require-theme' is ONLY for the built-in Modus themes
+
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil)
+
+  ;; Maybe define some palette overrides, such as by using our presets
+  (setq modus-themes-common-palette-overrides
+        modus-themes-preset-overrides-intense)
+
+  ;; Load the theme of your choice.
+  (load-theme 'modus-operandi)
+
+  (define-key global-map (kbd "<f5>") #'modus-themes-toggle))
 
 ;; diminish keeps the modeline tidy
 (use-package diminish
   :demand t)
 
-;; (use-package crux)
+(use-package crux)
 
 (use-package all-the-icons)
-
-(use-package treemacs
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-  :config
-  (progn
-    (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
-          treemacs-deferred-git-apply-delay        0.5
-          treemacs-directory-name-transformer      #'identity
-          treemacs-display-in-side-window          t
-          treemacs-eldoc-display                   'simple
-          treemacs-file-event-delay                2000
-          treemacs-file-extension-regex            treemacs-last-period-regex-value
-          treemacs-file-follow-delay               0.2
-          treemacs-file-name-transformer           #'identity
-          treemacs-follow-after-init               t
-          treemacs-expand-after-init               t
-          treemacs-find-workspace-method           'find-for-file-or-pick-first
-          treemacs-git-command-pipe                ""
-          treemacs-goto-tag-strategy               'refetch-index
-          treemacs-header-scroll-indicators        '(nil . "^^^^^^")
-          treemacs-hide-dot-git-directory          t
-          treemacs-indentation                     2
-          treemacs-indentation-string              " "
-          treemacs-is-never-other-window           nil
-          treemacs-max-git-entries                 5000
-          treemacs-missing-project-action          'ask
-          treemacs-move-forward-on-expand          nil
-          treemacs-no-png-images                   nil
-          treemacs-no-delete-other-windows         t
-          treemacs-project-follow-cleanup          nil
-          treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-          treemacs-position                        'left
-          treemacs-read-string-input               'from-child-frame
-          treemacs-recenter-distance               0.1
-          treemacs-recenter-after-file-follow      nil
-          treemacs-recenter-after-tag-follow       nil
-          treemacs-recenter-after-project-jump     'always
-          treemacs-recenter-after-project-expand   'on-distance
-          treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
-          treemacs-project-follow-into-home        nil
-          treemacs-show-cursor                     nil
-          treemacs-show-hidden-files               t
-          treemacs-silent-filewatch                nil
-          treemacs-silent-refresh                  nil
-          treemacs-sorting                         'alphabetic-asc
-          treemacs-select-when-already-in-treemacs 'move-back
-          treemacs-space-between-root-nodes        t
-          treemacs-tag-follow-cleanup              t
-          treemacs-tag-follow-delay                1.5
-          treemacs-text-scale                      nil
-          treemacs-user-mode-line-format           nil
-          treemacs-user-header-line-format         nil
-          treemacs-wide-toggle-width               70
-          treemacs-width                           35
-          treemacs-width-increment                 1
-          treemacs-width-is-initially-locked       t
-          treemacs-workspace-switch-cleanup        nil)
-
-    ;; The default width and height of the icons is 22 pixels. If you are
-    ;; using a Hi-DPI display, uncomment this to double the icon size.
-    ;;(treemacs-resize-icons 44)
-
-    (treemacs-follow-mode t)
-    (treemacs-filewatch-mode t)
-    (treemacs-fringe-indicator-mode 'always)
-    (when treemacs-python-executable
-      (treemacs-git-commit-diff-mode t))
-
-    (pcase (cons (not (null (executable-find "git")))
-                 (not (null treemacs-python-executable)))
-      (`(t . t)
-       (treemacs-git-mode 'deferred))
-      (`(t . _)
-       (treemacs-git-mode 'simple)))
-
-    (treemacs-hide-gitignored-files-mode nil))
-  :bind
-  (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t d"   . treemacs-select-directory)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
-
-(use-package treemacs-evil
-  :after (treemacs evil)
-  :ensure t)
-
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
-
-(use-package treemacs-icons-dired
-  :hook (dired-mode . treemacs-icons-dired-enable-once)
-  :ensure t)
-
-(use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
-
-(use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
-  :after (treemacs persp-mode) ;;or perspective vs. persp-mode
-  :ensure t
-  :config (treemacs-set-scope-type 'Perspectives))
-
-(use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
-  :after (treemacs)
-  :ensure t
-  :config (treemacs-set-scope-type 'Tabs))
-
-;; doom-themes
-(use-package doom-themes
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
-
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
-  (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
-
 
 (use-package dashboard
   :config
@@ -529,8 +426,6 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous))
 
 ;; add icons
-;; (use-package company-box
-  :hook (company-mode . company-box-mode))
 
 ;; linter
 (use-package flycheck :config (global-flycheck-mode +1))
@@ -582,11 +477,6 @@
 
 (use-package iedit)
 
-(use-package lsp-treemacs
-  :after lsp-mode treemacs
-  :config
-  (lsp-treemacs-sync-mode 1))
-
 ;; Org Mode
 (use-package org
   :defer t
@@ -625,42 +515,10 @@
   :init
   (advice-add 'python-mode :before 'elpy-enable))
 
-;;                                         ; Jupyter
-;; (use-package conda
-;;   :config (progn
-;;             (conda-env-initialize-interactive-shells)
-;;             (conda-env-initialize-eshell)
-;;             (conda-env-autoactivate-mode t)
-;;             (setq conda-env-home-directory (expand-file-name "~/.conda/"))
-;;             (custom-set-variables '(conda-anaconda-home "/opt/conda/"))))
-
-
-;; (use-package ein
-;;   :defer t
-;;   :config
-;;   (progn
-;;     ;;(setq ein:jupyter-default-notebook-directory "~/jupyter_notebooks/")
-;;     (with-eval-after-load 'ein-notebooklist
-;;       (evil-define-key 'normal ein:notebook-multilang-mode-map
-;;         (kbd "j") 'ein:worksheet-goto-next-input
-;;         (kbd "k") 'ein:worksheet-goto-prev-input
-;;         (kbd "D") 'ein:worksheet-kill-cell
-;;         (kbd "o") 'ein:worksheet-insert-cell-below
-;;         (kbd "O") 'ein:worksheet-insert-cell-above
-;;         (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next
-;;         (kbd "RET") 'ein:worksheet-execute-cell
-;;         (kbd "C-l") 'ein:worksheet-clear-output
-;;         (kbd "C-S-l") 'ein:worksheet-clear-all-output)
-;;       (evil-define-key 'insert ein:notebook-multilang-mode-map
-;;         (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next)
-;;       )
-;;     )
-;; )
-
 ;; c/cpp
 
 ;; https://emacs-lsp.github.io/lsp-mode/tutorials/CPP-guide/
-(setq package-selected-packages '(lsp-mode yasnippet lsp-treemacs helm-lsp
+(setq package-selected-packages '(lsp-mode yasnippet helm-lsp
     projectile hydra flycheck company avy which-key helm-xref dap-mode))
 
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
@@ -674,30 +532,12 @@
   :after (cmake-mode)
   :hook (cmake-mode . cmake-font-lock-activate))
 
-(use-package cmake-ide
-  :after projectile
-  :hook (c++-mode . cmake-ide-find-project)
-  :preface
-  (defun cmake-ide-find-project ()
-    "Finds the directory of the project for cmake-ide."
-    (with-eval-after-load 'projectile
-      (setq cmake-ide-project-dir (projectile-project-root))
-      (setq cmake-ide-build-dir (concat cmake-ide-project-dir "build")))
-    (setq cmake-ide-compile-command
-          (concat "cd " cmake-ide-build-dir " && cmake .. && make"))
-    (cmake-ide-load-db))
-
-  (defun
-    (other-window 1))
-  :bind ([remap comment-region] . cmake-ide-compile)
-  :init (cmake-ide-setup)
-  :config (advice-add 'cmake-ide-compile :after #'switch-to-compilation-window))
 
 (use-package yasnippet)
 
-(use-package google-c-style
-  :hook ((c-mode c++-mode) . google-set-c-style)
-  (c-mode-common . google-make-newline-indent))
+;; (use-package google-c-style
+;;   :hook ((c-mode c++-mode) . google-set-c-style)
+;;   (c-mode-common . google-make-newline-indent))
 
 (use-package nerd-icons
   ;; :custom
@@ -706,10 +546,6 @@
   ;; but you can use any other Nerd Font if you want
   ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
   )
-
-(use-package treemacs-nerd-icons
-  :config
-  (treemacs-load-theme "nerd-icons"))
 
 (provide 'init)
 ;;; init.el ends here.
