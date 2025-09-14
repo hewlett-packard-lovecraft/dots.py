@@ -1,5 +1,5 @@
 # exec sway
-source $HOME/.zshrc.d/sway.zsh
+# source $HOME/.zshrc.d/sway.zsh
 
 # zmodload zsh/zprof
 
@@ -8,6 +8,8 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+
+
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -70,15 +72,20 @@ ZSH_THEME="fishy"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(zshrcd zsh-autosuggestions zsh-syntax-highlighting git git-commit git-extras gitignore archlinux aliases
-command-not-found common-aliases cp debian fzf nodenv npm pyenv rsync ssh-agent ssh sudo systemd timer tmux tmuxinator
+plugins=(zshrc.d zsh-autosuggestions fzf-tab fast-syntax-highlighting git git-commit git-extras gitignore archlinux aliases
+command-not-found common-aliases cp debian fzf nodenv npm pyenv rsync ssh-agent ssh sudo systemd timer tmux tmuxinator vscode dotenv
 wd you-should-use  z zsh-interactive-cd zsh-navigation-tools)
+
+# fzf
+export DISABLE_FZF_AUTO_COMPLETION="false"
 
 source $ZSH/oh-my-zsh.sh
 
