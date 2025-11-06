@@ -48,22 +48,25 @@ mason_lspconfig.setup({
 	automatic_installation = {
 		"lua_ls",
 		"ruff",
-		"ltex",
+		"ltex-ls-plus",
 		"texlab",
 		"jdtls",
+		"bash-language-server",
 	},
 })
 
 mason_tool_installer.setup({
 	ensure_installed = {
-		"eslint_d",
+		"eslint-lsp",
 		"stylua",
 		"black",
 		"isort",
 		"prettierd",
 		"prettier",
-		"eslint_d",
 		"markdownlint",
+		"bash-language-server",
+		"shellcheck",
+		"shfmt",
 	},
 })
 
@@ -74,6 +77,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 mason_nvim_dap.setup({
-	ensure_installed = { "python", "cppdbg" },
+	ensure_installed = { "python", "cppdbg", "js", "bash" },
 	handlers = {},
 })

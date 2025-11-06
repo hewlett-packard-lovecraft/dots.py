@@ -49,7 +49,7 @@ lazy.setup({
 			branch = "0.1.x",
 			dependencies = {
 				"nvim-lua/plenary.nvim",
-				"kyazdani42/nvim-web-devicons",
+				"kyazdani43/nvim-web-devicons",
 				"nvim-telescope/telescope-ui-select.nvim",
 				"nvim-telescope/telescope-dap.nvim",
 			},
@@ -138,6 +138,40 @@ lazy.setup({
 			cmd = "StartupTime",
 		},
 		-- various utils
+
+		{
+			"chrisgrieser/nvim-various-textobjs",
+			event = "VeryLazy",
+			opts = {
+				keymaps = {
+					useDefaults = true,
+				},
+			},
+		},
+		{
+			"chrisgrieser/nvim-spider",
+			opts = {
+				skipInsignificantPunctuation = false,
+				consistentOperatorPending = false, -- see the README for details
+				subwordMovement = true,
+				customPatterns = { patterns = { "{", "}", "(", ")" }, overrideDefault = false }, -- see the README for details
+			},
+			keys = {
+				{ "w", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "o", "x" } },
+				{ "e", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "o", "x" } },
+				{ "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "o", "x" } },
+				{
+					"<C-f>",
+					"<Esc>l<cmd>lua require('spider').motion('w')<CR>i",
+					mode = { "i" },
+				},
+				{
+					"<C-b>",
+					"<Esc><cmd>lua require('spider').motion('b')<CR>i",
+					mode = { "i" },
+				},
+			},
+		},
 		{
 			"numToStr/Comment.nvim",
 			lazy = false,
@@ -212,6 +246,17 @@ lazy.setup({
 					"<leader>xQ",
 					"<cmd>Trouble qflist toggle<cr>",
 					desc = "Quickfix List (Trouble)",
+				},
+			},
+			modes = {
+				test = {
+					mode = "diagnostics",
+					preview = {
+						type = "split",
+						relative = "win",
+						position = "right",
+						size = 0.3,
+					},
 				},
 			},
 		},

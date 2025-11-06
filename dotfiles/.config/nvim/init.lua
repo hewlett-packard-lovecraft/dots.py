@@ -1,6 +1,11 @@
 -- Neovim init file
 
-if vim.g.vscode == nil then
+if vim.g.vscode then
+	-- VSCode extension
+	require("vsc/lazy")
+	require("vsc/options")
+	require("vsc/keymaps")
+else
 	-- ordinary Neovim
 	require("core/lazy")
 	require("core/autocmd")
@@ -20,9 +25,4 @@ if vim.g.vscode == nil then
 	require("plugins/indent-blankline")
 	require("plugins/nvim-cmp")
 	require("plugins/nvim-treesitter")
-else
-	-- VSCode extension
-	require("vsc/lazy")
-	require("vsc/options")
-	require("vsc/keymaps")
 end

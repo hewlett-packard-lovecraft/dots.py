@@ -23,6 +23,21 @@ end
 lazy.setup({
 	spec = {
 		{
+			"vscode-neovim/vscode-multi-cursor.nvim",
+			event = "VeryLazy",
+			cond = not not vim.g.vscode,
+			opts = {},
+		},
+		{
+			"chrisgrieser/nvim-various-textobjs",
+			event = "VeryLazy",
+			opts = {
+				keymaps = {
+					useDefaults = true,
+				},
+			},
+		},
+		{
 			"folke/flash.nvim",
 			event = "VeryLazy",
 			---@type Flash.Config
@@ -35,6 +50,58 @@ lazy.setup({
         { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
         { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
       },
+		},
+		{
+			"chrisgrieser/nvim-spider",
+			opts = {
+				skipInsignificantPunctuation = false,
+				consistentOperatorPending = false, -- see the README for details
+				subwordMovement = true,
+				customPatterns = {},
+				-- customPatterns = { patterns = { "{", "}", "(", ")" }, overrideDefault = false }, -- see the README for details
+			},
+			keys = {
+				{
+					"w",
+					"<cmd>lua require('spider').motion('w')<CR>",
+					mode = { "n", "o", "x" },
+				},
+				{
+					"e",
+					"<cmd>lua require('spider').motion('e')<CR>",
+					mode = { "n", "o", "x" },
+				},
+				{
+					"b",
+					"<cmd>lua require('spider').motion('b')<CR>",
+					mode = { "n", "o", "x" },
+				},
+				-- {
+				-- 	"W",
+				-- 	"<cmd>lua require('spider').motion('W', { skipInsignificantPunctuation = true }) <CR>",
+				-- 	mode = { "n", "o", "x" },
+				-- },
+				-- {
+				-- 	"E",
+				-- 	"<cmd>lua require('spider').motion('E', { skipInsignificantPunctuation = true }) <CR>",
+				-- 	mode = { "n", "o", "x" },
+				-- },
+				-- {
+				-- 	"B",
+				-- 	"<cmd>lua require('spider').motion('B'), { skipInsignificantPunctuation = true }) <CR>",
+				-- 	mode = { "n", "o", "x" },
+				-- },
+				{
+					"<C-f>",
+					"<Esc>l<cmd>lua require('spider').motion('w')<CR>i",
+					mode = { "i" },
+				},
+				{
+					"<C-b>",
+					"<Esc><cmd>lua require('spider').motion('b')<CR>i",
+					mode = { "i" },
+				},
+			},
 		},
 		"numToStr/Comment.nvim",
 		"michaeljsmith/vim-indent-object",

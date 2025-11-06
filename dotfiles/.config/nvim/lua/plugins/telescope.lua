@@ -8,6 +8,7 @@ if not telescope_status_ok then
 end
 
 telescope.setup({
+	defaults = { file_ignore_patterns = { ".git/", "node_modules/" } },
 	extensions = {
 		["ui-select"] = {
 			require("telescope.themes").get_dropdown({

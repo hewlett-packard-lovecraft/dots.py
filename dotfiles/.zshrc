@@ -87,6 +87,9 @@ wd you-should-use  z zsh-interactive-cd zsh-navigation-tools)
 # fzf
 export DISABLE_FZF_AUTO_COMPLETION="false"
 
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -120,3 +123,9 @@ fi
 
 
 # zprof
+
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

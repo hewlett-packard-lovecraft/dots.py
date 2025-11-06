@@ -1,17 +1,27 @@
- WSL yank support
+-- WSL yank support
 
-let s:clip = '/mnt/c/Windows/System32/clip.exe' " change this path according to your mount point
+vim.g.clipboard = {
+	name = "WslClipboard",
+	copy = {
+		["+"] = "clip.exe",
+		["*"] = "clip.exe",
+	},
+	paste = {
+		["+"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+		["*"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+	},
+	cache_enabled = 0,
+}
 
-if executable(s:clip)
-
-augroup WSLYank
-
-autocmd!
-
-autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, u/0
-
-) | endif
-
-augroup END
-
-endif
+--
+-- \   'name': 'WslClipboard',
+-- \   'copy': {
+-- \      '+': 'clip.exe',
+-- \      '*': 'clip.exe',
+-- \    },
+-- \   'paste': {
+-- \      '+': 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+-- \      '*': 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+-- \   },
+-- \   'cache_enabled': 0,
+-- \ }

@@ -14,7 +14,7 @@ vim.notify = vscode.notify -- show vscode notifications
 -----------------------------------------------------------
 opt.mouse = "a" -- Enable mouse support
 g.clipboard = g.vscode_clipboard
--- opt.clipboard = "unnamedplus" -- Copy/paste to system clipboard
+opt.clipboard = "unnamedplus" -- Copy/paste to system clipboard
 opt.swapfile = false -- Don't use swapfile
 opt.completeopt = "menuone,noinsert,noselect" -- Autocomplete options
 
@@ -22,7 +22,7 @@ opt.completeopt = "menuone,noinsert,noselect" -- Autocomplete options
 -- Neovim UI
 -----------------------------------------------------------
 opt.number = true
-opt.relativenumber = true -- relative number
+-- opt.relativenumber = true -- relative number
 opt.showmatch = true -- Highlight matching parenthesis
 opt.foldmethod = "marker" -- Enable folding (default 'foldmarker')
 opt.colorcolumn = "80" -- Line lenght marker at 80 columns
