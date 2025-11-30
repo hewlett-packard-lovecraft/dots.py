@@ -1,6 +1,4 @@
-# exec sway
-# source $HOME/.zshrc.d/sway.zsh
-
+# profiler
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
@@ -9,13 +7,12 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="fishy"
+# ZSH_THEME="minimal"
+ZSH_THEME="simple"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -24,19 +21,19 @@ ZSH_THEME="fishy"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
 # zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+zstyle ':omz:update' frequency 7
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -48,7 +45,7 @@ ZSH_THEME="fishy"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -74,21 +71,36 @@ ZSH_THEME="fishy"
 
 ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 
+### misc plugin configuration
+# fzf
+export DISABLE_FZF_AUTO_COMPLETION="false"
+
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+
+# nvm
+# zstyle ':omz:plugins:nvm' autoload yes
+zstyle ':omz:plugins:nvm' lazy yes
+
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(zshrc.d zsh-autosuggestions fzf-tab fast-syntax-highlighting git git-commit git-extras gitignore archlinux aliases
-command-not-found common-aliases cp debian fzf nodenv npm pyenv rsync ssh-agent ssh sudo systemd timer tmux tmuxinator vscode dotenv
-wd you-should-use  z zsh-interactive-cd zsh-navigation-tools)
+    # zshrc.d
 
-# fzf
-export DISABLE_FZF_AUTO_COMPLETION="false"
-
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
+plugins=(
+    git
+    nvm
+    ssh-agent
+    fzf-tab
+    fast-syntax-highlighting
+    zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,11 +112,11 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='nvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#     export EDITOR='vim'
+# else
+#     export EDITOR='nvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -121,11 +133,32 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"a
 
+# Alias expansion function
+# globalias() {
+#    if [[ $LBUFFER =~ '[a-zA-Z0-9]+$' ]]; then
+#        zle _expand_alias
+#        zle expand-word
+#    fi
+#    zle self-insert
+# }
+# zle -N globalias
+# bindkey " " globalias
+# bindkey "^[[Z" magic-space
+# bindkey -M isearch " " magic-space
+#
+# Lazy load SSH agent
+# function _load_ssh_agent() {
+#     if [ -z "$SSH_AUTH_SOCK" ]; then
+#         eval "$(ssh-agent -s)" > /dev/null
+#         ssh-add ~/.ssh/id_ed25519 2>/dev/null
+#     fi
+# }
+# autoload -U add-zsh-hook
+# add-zsh-hook precmd _load_ssh_agent
+
+# Path configurations
+
+# Source aliases last
+[ -f ~/.zshrc.d/bob.zsh ] && source ~/.zshrc.d/bob.zsh
 
 # zprof
-
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

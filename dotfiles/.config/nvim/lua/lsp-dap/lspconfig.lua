@@ -8,10 +8,7 @@
 -- For configuration see the Wiki: https://github.com/neovim/nvim-lspconfig/wiki
 -- Autocompletion settings of "nvim-cmp" are defined in plugins/nvim-cmp.lua
 
-local lsp_status_ok, lspconfig = pcall(require, "lspconfig")
-if not lsp_status_ok then
-	return
-end
+local lspconfig = vim.lsp.config
 
 local cmp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not cmp_status_ok then
@@ -124,19 +121,24 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches.
 -- Add your language server below:
-local servers = { "bashls", "pyright", "clangd", "html", "cssls", "ts_ls", "ruff", "lua_ls", "ltex", "texlab" }
+-- local servers = { "bashls", "pyright", "clangd", "html", "cssls", "ts_ls", "ruff", "lua_ls", "ltex", "texlab" }
+
+local servers = { "bashls", "pyright", "clangd", "html", "cssls", "ts_ls", "ruff", "lua_ls", "ltex_plus" }
 
 -- we deliberately exclude jdtls as nvim-jdtls handles it
 
 -- Call setup
 for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
-		on_attach = on_attach,
-		root_dir = root_dir,
-		capabilities = capabilities,
-		flags = {
-			-- default in neovim 0.7+
-			debounce_text_changes = 150,
-		},
-	})
+	vim.lsp.enable(lsp)
+	-- vim.lsp.config(lsp, {
+	-- 	settings = {
+	-- 		on_attach = on_attach,
+	-- 		root_dir = root_dir,
+	-- 		capabilities = capabilities,
+	-- 		flags = {
+	-- 			-- default in neovim 0.7+
+	-- 			debounce_text_changes = 150,
+	-- 		},
+	-- 	},
+	-- })
 end

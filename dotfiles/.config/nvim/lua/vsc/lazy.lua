@@ -22,12 +22,12 @@ end
 -- Start setup
 lazy.setup({
 	spec = {
-		{
-			"vscode-neovim/vscode-multi-cursor.nvim",
-			event = "VeryLazy",
-			cond = not not vim.g.vscode,
-			opts = {},
-		},
+		-- {
+		-- 	"vscode-neovim/vscode-multi-cursor.nvim",
+		-- 	event = "VeryLazy",
+		-- 	cond = not not vim.g.vscode,
+		-- 	opts = {},
+		-- },
 		{
 			"chrisgrieser/nvim-various-textobjs",
 			event = "VeryLazy",
@@ -104,8 +104,8 @@ lazy.setup({
 			},
 		},
 		"numToStr/Comment.nvim",
-		"michaeljsmith/vim-indent-object",
-		"wellle/targets.vim",
+		-- "michaeljsmith/vim-indent-object",
+		-- "wellle/targets.vim",
 		"windwp/nvim-autopairs",
 	},
 })

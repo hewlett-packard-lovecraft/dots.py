@@ -154,7 +154,6 @@ lazy.setup({
 				skipInsignificantPunctuation = false,
 				consistentOperatorPending = false, -- see the README for details
 				subwordMovement = true,
-				customPatterns = { patterns = { "{", "}", "(", ")" }, overrideDefault = false }, -- see the README for details
 			},
 			keys = {
 				{ "w", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "o", "x" } },
