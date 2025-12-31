@@ -11,7 +11,6 @@
   ],
   "modules-center": [],
   "modules-right": [
-    "custom/tabletmode",
     "cpu",
     "network",
     "temperature",
@@ -20,7 +19,6 @@
     "battery",
     "clock",
     "tray",
-    "custom/powerbutton",
   ],
 
   "sway/workspaces": {
@@ -66,7 +64,7 @@
   },
 
   "battery": {
-    "bat": "rk817-battery",
+    "bat": "BAT0",
     "states": {
       "full": 99,
       "good": 98,
@@ -92,7 +90,7 @@
   },
 
   "temperature": {
-    "thermal-zone": 0,
+    "thermal-zone": 1,
     "format": "{icon} {temperatureC}°C",
     "format-icons": [""],
     "interval": 30,

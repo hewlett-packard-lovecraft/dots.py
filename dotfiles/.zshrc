@@ -1,6 +1,10 @@
 # profiler
 # zmodload zsh/zprof
 
+if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] ; then
+    exec sway
+fi  
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -45,7 +49,7 @@ zstyle ':omz:update' frequency 7
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -160,5 +164,12 @@ export LANG=en_US.UTF-8
 
 # Source aliases last
 [ -f ~/.zshrc.d/bob.zsh ] && source ~/.zshrc.d/bob.zsh
+
+if [ -x "$(command -v emacs)" ]; then
+  alias ew="emacsclient -c """
+fi
+
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+  source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 # zprof
