@@ -16,7 +16,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="minimal"
-ZSH_THEME="simple"
+ZSH_THEME="dieter"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -166,7 +166,8 @@ export LANG=en_US.UTF-8
 [ -f ~/.zshrc.d/bob.zsh ] && source ~/.zshrc.d/bob.zsh
 
 if [ -x "$(command -v emacs)" ]; then
-  alias ew="emacsclient -c """
+    alias ew='emacsclient -c'
+    alias ewt='emacs -nw'
 fi
 
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
