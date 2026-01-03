@@ -95,7 +95,6 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-    # zshrc.d
 
 plugins=(
     git
@@ -163,14 +162,5 @@ export LANG=en_US.UTF-8
 # Path configurations
 
 # Source aliases last
-[ -f ~/.zshrc.d/bob.zsh ] && source ~/.zshrc.d/bob.zsh
-
-if [ -x "$(command -v emacs)" ]; then
-    alias ew='emacsclient -c'
-    alias ewt='emacs -nw'
-fi
-
-[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
-  source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 # zprof

@@ -298,6 +298,25 @@ bindsym $mod+r mode "resize"
     bindsym Print exec grim
 
 #
+# Multi-monitor:
+#
+
+# Focus on relative monitor position
+bindsym $mod+Mod1+Left focus output left
+bindsym $mod+Mod1+Right focus output right
+bindsym $mod+Mod1+Up focus output up
+bindsym $mod+Mod1+Down focus output down
+
+# Move container to specific monitors
+bindsym $mod+Mod1+Shift+a move container to output eDP-1
+bindsym $mod+Mod1+Shift+s move container to output HDMI-A-1
+
+# Move container to relative monitor position
+bindsym $mod+Mod1+Shift+Left move container to output left
+bindsym $mod+Mod1+Shift+Right move container to output right
+
+
+#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
