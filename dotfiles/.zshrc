@@ -95,11 +95,18 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
+# vi
+VI_MODE_SET_CURSOR=true
+#VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
 plugins=(
+    emacs
+    vi-mode
     git
+    github
     nvm
     ssh-agent
+    fzf
     fzf-tab
     fast-syntax-highlighting
     zsh-autosuggestions
