@@ -94,9 +94,6 @@ output eDP-1 scale 1
           timeout 600 'systemctl suspend' \
           before-sleep 'playerctl pause; swaylock -f -c 000000'
 
-#exec swayidle -w \
-#         timeout 600 'systemctl suspend'
-
 ### Input configuration
 #
 # Example configuration:
@@ -114,6 +111,10 @@ input "2362:597:HTIX5288:00_093A:0255_Touchpad" {
       natural_scroll enabled
       middle_emulation enabled
       accel_profile "adaptive"
+}
+
+input "type:pointer" {
+     accel_profile flat
 }
 
 input "type:keyboard" {
