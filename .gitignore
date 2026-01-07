@@ -12,7 +12,10 @@ dotfiles/.config/*
 !dotfiles/.config/sway
 !dotfiles/.config/i3status
 !dotfiles/.config/waybar
-!dotfiles/.config/nwg-bar
+
+!dotfiles/.config/home-manager
+!dotfiles/.config/kitty
+!dotfiles/.config/foot
 
 
 

@@ -52,14 +52,7 @@ set $term kitty
 
 # Your preferred application launcher
 
-# set $menu 'nwg-menu -ha "right" -va "top" term="kitty" -cmd-lock " " -cmd-logout=" " -d'
-# include "$HOME/.config/sway/wmenu-colors"
-# set $menu "wmenu-run -n 77F5F6 -N 180000 -s 77F5F6 -S 8F7A5B -m 77F5F6 -M 00FCFD "
-
 set $menu wmenu-run
-# nwg-drawer
-# exec_always nwg-drawer -r
-# bindsym Mod1+1 exec pkill -USR1 nwg-drawer
 
 ### Output configuration
 #
@@ -105,7 +98,10 @@ output eDP-1 scale 1
 #       middle_emulation enabled
 #   }
 
-input "2362:597:HTIX5288:00_093A:0255_Touchpad" {
+# gpdwinmax
+# input "2362:597:HTIX5288:00_093A:0255_Touchpad" {
+
+input "type:touchpad" {
       dwt enabled
       tap enabled
       natural_scroll enabled
