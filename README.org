@@ -1,0 +1,3 @@
+#+TITLE: dotfiles
+
+formerly dots.py, now managed with nix
