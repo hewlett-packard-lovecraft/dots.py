@@ -1,6 +1,6 @@
-# keep only init.el
-dotfiles/.config/emacs/*
-!dotfiles/.config/emacs/init.el
+# delete .zshrc .zshenv now that we've moved to nix
+dotfiles/.zshrc
+dotfiles/.zshenv
 
 dotfiles/.config/*
 !dotfiles/.config/nvim/

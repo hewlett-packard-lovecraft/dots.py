@@ -1,4 +1,4 @@
-# dots.py
+# dotfiles
 my dotfile repository + a simple provision script
 
 ## Usage
